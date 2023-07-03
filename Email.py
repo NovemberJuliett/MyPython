@@ -1,8 +1,10 @@
 import os
 import smtplib
 site_name = 'https://dvmn.org/referrals/f5ZfmRAHLPobficTeGhR7BjpCcT6OumPj2dv6Rx7/'
-friend_name = 'Стас'
-sender_name = 'Юлия'
+sender_email = "AllThoseMomentsWillBeLost@yandex.ru"
+sender_name = "Юлия"
+recipient_email = "izmaylovajulia@yandex.ru"
+recipient_name = "Стас"
 letter = '''\
 From: AllThoseMomentsWillBeLost@yandex.ru
 To: izmaylovajulia@yandex.ru
@@ -24,12 +26,12 @@ Content-Type: text/plain; charset="UTF-8";
 Все проекты — они же решение наших задачек — можно разместить на твоём GitHub. Работодатели такое оценят. 
 \n
 Регистрируйся → {site}  
-На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл.'''.format(friend = friend_name, site = site_name, sender = sender_name)
+На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл.'''.format(friend = recipient_name, site = site_name, sender = sender_name)
 letter = letter.encode("UTF-8")
 my_secret = os.environ['MAIL_PASSWORD']
 server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
 server.login('AllThoseMomentsWillBeLost', my_secret)
-server.sendmail("AllThoseMomentsWillBeLost@yandex.ru", "izmaylovajulia@yandex.ru", letter)
+server.sendmail(sender_email, recipient_email, letter)
 server.quit()
 
 
