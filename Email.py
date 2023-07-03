@@ -26,7 +26,6 @@ Content-Type: text/plain; charset="UTF-8";
 Регистрируйся → {site}  
 На курсы, которые еще не вышли, можно подписаться и получить уведомление о релизе сразу на имейл.'''.format(friend = friend_name, site = site_name, sender = sender_name)
 letter = letter.encode("UTF-8")
-print(letter)
 my_secret = os.environ['MAIL_PASSWORD']
 server = smtplib.SMTP_SSL('smtp.yandex.ru:465')
 server.login('AllThoseMomentsWillBeLost', my_secret)
