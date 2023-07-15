@@ -1,18 +1,19 @@
 from faker import Faker
-fake = Faker("ru_RU")
-
 import random
 
 import file_operations
 
-SKILLS = ["Стремительный прыжок",
-          "Электрический выстрел",
-          "Ледяной удар",
-          "Стремительный удар",
-          "Кислотный взгляд",
-          "Тайный побег",
-          "Ледяной выстрел",
-          "Огненный заряд"]
+fake = Faker("ru_RU")
+SKILLS = [
+    "Стремительный прыжок",
+    "Электрический выстрел",
+    "Ледяной удар",
+    "Стремительный удар",
+    "Кислотный взгляд",
+    "Тайный побег",
+    "Ледяной выстрел",
+    "Огненный заряд"
+]
 SKILLS_VOCABULARY = {
     'а': 'а͠', 
     'б': 'б̋', 
@@ -82,33 +83,32 @@ SKILLS_VOCABULARY = {
     'Я': 'Я̋',
     ' ': ' '
 }
+
 def main():
-    if __name__ == '__main__':
-        main()  
-runic_skills = [] 
-for name in SKILLS:
-    for key in SKILLS_VOCABULARY.keys():
-     rune = SKILLS_VOCABULARY[key]
-     name = name.replace(key, rune)
-     runic_skills.append(name)
+    runic_skills = [] 
+    for name in SKILLS:
+        for key in SKILLS_VOCABULARY.keys():
+            rune = SKILLS_VOCABULARY[key]
+            name = name.replace(key, rune)
+        runic_skills.append(name)    
+    
+    for i in range(10):
+        context = {
+           "first_name": fake.first_name(),
+           "last_name": fake.last_name(), 
+           "city": fake.city(),
+           "job": fake.job(),
+           "strength": random.randint(3, 18),
+           "agility": random.randint(3, 18),
+           "endurance": random.randint(3, 18),
+           "intelligence": random.randint(3, 18),
+           "luck": random.randint(3, 18),
+           "skills": random.sample(runic_skills, 3)
+        }
+        file_name = "Cards/new_result{}.txt".format(i)
+        file_operations.render_template("template.txt", file_name, context)
 
-for i in range(10):
-    context = {
-   "first_name": fake.first_name(),
-   "last_name": fake.last_name(), 
-   "city": fake.city(),
-   "job": fake.job(),
-   "strength": random.randint(3, 18),
-   "agility": random.randint(3, 18),
-   "endurance": random.randint(3, 18),
-   "intelligence": random.randint(3, 18),
-   "luck": random.randint(3, 18),
-   "skills": random.sample(runic_skills, 3)
-    }
-    file_name = 'result{}.txt'.format(i)
-    file_operations.render_template("template.txt", "Cards/new_result{}.txt".format(i), context)
 
+if __name__ == "__main__":
+    main()
    
-
-
-
