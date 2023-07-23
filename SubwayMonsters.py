@@ -3,7 +3,6 @@ import random
 
 import file_operations
 
-fake = Faker("ru_RU")
 SKILLS = [
     "Стремительный прыжок",
     "Электрический выстрел",
@@ -25,7 +24,7 @@ SKILLS_VOCABULARY = {
     'ж': 'ж͒', 
     'з': 'з̋̋͠',
     'и': 'и', 
-    'й': 'й͒͠', 
+    'й': 'й͒͠',
     'к': 'к̋̋',
     'л': 'л̋͠',
     'м': 'м͒͠',
@@ -85,28 +84,32 @@ SKILLS_VOCABULARY = {
 }
 
 def main():
+    fake = Faker("ru_RU")
     runic_skills = [] 
     for name in SKILLS:
         for key in SKILLS_VOCABULARY.keys():
             rune = SKILLS_VOCABULARY[key]
             name = name.replace(key, rune)
-        runic_skills.append(name)    
-    
-    for i in range(10):
+        runic_skills.append(name) 
+
+    for i in range(12):
+        skill1 = random.sample(runic_skills, 3)
         context = {
-           "first_name": fake.first_name(),
-           "last_name": fake.last_name(), 
-           "city": fake.city(),
-           "job": fake.job(),
-           "strength": random.randint(3, 18),
-           "agility": random.randint(3, 18),
-           "endurance": random.randint(3, 18),
-           "intelligence": random.randint(3, 18),
-           "luck": random.randint(3, 18),
-           "skills": random.sample(runic_skills, 3)
+            "first_name": fake.first_name(),
+            "last_name": fake.last_name(), 
+            "town": fake.city(),
+            "job": fake.job(),
+            "strength": random.randint(3, 18),
+            "agility": random.randint(3, 18),
+            "endurance": random.randint(3, 18),
+            "intelligence": random.randint(3, 18),
+            "luck": random.randint(3, 18),
+            "skill_1": skill1[0],
+            "skill_2": skill1[1],
+            "skill_3": skill1[2]
         }
-        file_name = "Cards/new_result{}.txt".format(i)
-        file_operations.render_template("template.txt", file_name, context)
+        file_name = "Cards/charsheet{}.svg".format(i)
+        file_operations.render_template("Cards/charsheet.svg", file_name, context)
 
 
 if __name__ == "__main__":
