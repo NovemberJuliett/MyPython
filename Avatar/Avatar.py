@@ -1,4 +1,5 @@
 from PIL import Image
+
 image = Image.open("monro.jpg")
 red, green, blue = image.split()
 shift = 25
